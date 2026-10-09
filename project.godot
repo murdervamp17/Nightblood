@@ -1,0 +1,33 @@
+; Nightblood: Containment Break - prototype sandbox
+config_version=5
+
+[application]
+config/name="Nightblood: Containment Break"
+run/main_scene="res://Main.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+
+[display]
+window/size/viewport_width=480
+window/size/viewport_height=270
+window/size/window_width_override=960
+window/size/window_height_override=540
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.018, 0.012, 0.025, 1)
+
+[input]
+move_left={"deadzone":0.2,"events":[{"physical_keycode":65},{"physical_keycode":4194311}]}
+move_right={"deadzone":0.2,"events":[{"physical_keycode":68},{"physical_keycode":4194313}]}
+move_up={"deadzone":0.2,"events":[{"physical_keycode":87},{"physical_keycode":4194320}]}
+move_down={"deadzone":0.2,"events":[{"physical_keycode":83},{"physical_keycode":4194322}]}
+ability_telekinesis={"deadzone":0.2,"events":[{"physical_keycode":32}]}
+ability_feed={"deadzone":0.2,"events":[{"physical_keycode":70}]}
+ability_fly={"deadzone":0.2,"events":[{"physical_keycode":32,"shift_pressed":true}]}
+ability_dash={"deadzone":0.2,"events":[{"physical_keycode":_SHIFT}]}
+upgrade_power={"deadzone":0.2,"events":[{"physical_keycode":69}]}
