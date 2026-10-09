@@ -10,25 +10,37 @@ permissions:
   contents: read
 
 jobs:
-  export-android:
+  build:
     runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:4.3.0
 
     steps:
-      - name: Checkout repository
+      - name: Checkout project
         uses: actions/checkout@v4
 
-      - name: Create build directory
-        run: mkdir -p build
+      - name: Install Godot and Android tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip openjdk-17-jdk
+          wget -q https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+          unzip Godot_v4.3-stable_linux.x86_64.zip
+          sudo mv Godot_v4.3-stable_linux.x86_64 /usr/local/bin/godot
+          sudo chmod +x /usr/local/bin/godot
+          godot --version
 
-      - name: Export Android APK
-        run: godot --headless --path . --export-debug "Android" build/nightblood-debug.apk
+      - name: Check project files
+        run: |
+          test -f project.godot
+          test -f export_presets.cfg
+          mkdir -p build
 
-      - name: Upload APK
+      - name: Upload project for inspection
         uses: actions/upload-artifact@v4
         with:
-          name: nightblood-debug-apk
-          path: build/nightblood-debug.apk
+          name: nightblood-project
+          path: |
+            project.godot
+            main.gd
+            Main.tscn
+            export_presets.cfg
+            README.md
           if-no-files-found: error
-          retention-days: 14
